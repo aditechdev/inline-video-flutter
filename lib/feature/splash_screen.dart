@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:inline_video_flutter/core/routes/route_constant.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -37,8 +38,21 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text("Splash Screen")),
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              "assets/svg/musician-svg.svg",
+              height: 150,
+              width: 150,
+            ),
+            const SizedBox(height: 30,),
+            const Text("Inline Video Player")
+          ],
+        ),
+      ),
     );
   }
 }
