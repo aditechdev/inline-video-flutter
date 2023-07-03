@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:inline_video_flutter/home_page.dart';
+import 'package:inline_video_flutter/constant/route_constant.dart';
+import 'package:inline_video_flutter/core/app_routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(),
+      // home: const MyHomePage(),
+      initialRoute: RoutePath.splashScreen,
+      routes: AppRoutes.routes,
     );
   }
 }
