@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:inline_video_flutter/core/app_init.dart';
 import 'package:inline_video_flutter/core/routes/route_constant.dart';
 import 'package:inline_video_flutter/core/routes/app_routes.dart';
 import 'package:inline_video_flutter/core/theme/my_theme.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async{
+ await appInit();
 }
 
 class MyApp extends StatelessWidget {
