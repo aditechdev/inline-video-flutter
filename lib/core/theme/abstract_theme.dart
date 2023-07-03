@@ -6,4 +6,7 @@ abstract class ColorTheme {
   // Appbar Color
   Color get appBackgroundColor;
   Color get statusBarColor;
+
+  // Scafold
+  Color get scaffoldBackgroundColor;
 }

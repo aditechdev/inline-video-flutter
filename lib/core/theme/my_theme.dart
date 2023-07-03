@@ -9,10 +9,11 @@ class MyAppTheme {
   ThemeData myAppTheme() {
     return ThemeData(
       primaryColor: th.primaryColor,
+      scaffoldBackgroundColor: th.scaffoldBackgroundColor,
       appBarTheme: AppBarTheme(
         elevation: 0,
         backgroundColor: th.appBackgroundColor,
-        systemOverlayStyle:  SystemUiOverlayStyle(
+        systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: th.statusBarColor,
           statusBarBrightness: Brightness.light,
         ),

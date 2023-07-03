@@ -12,4 +12,7 @@ class LightThemeColors implements ColorTheme {
   @override
   Color get statusBarColor => Colors.deepPurple;
 
+    @override
+  Color get scaffoldBackgroundColor => Colors.white;
+
 }
