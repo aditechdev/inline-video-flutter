@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:inline_video_flutter/bloc/system_bloc.dart';
-import 'package:inline_video_flutter/bloc/video_file_bloc.dart';
+import 'package:inline_video_flutter/services/bloc/system_bloc.dart';
+import 'package:inline_video_flutter/services/bloc/video_file_bloc.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoScreen extends StatefulWidget {
@@ -14,8 +14,10 @@ class VideoScreen extends StatefulWidget {
 class _VideoScreenState extends State<VideoScreen> {
   late VideoPlayerController? _controller;
 
+  var videoList = vib.getVideoList.stream.value;
+
   bool _showGrid = false;
-  bool _isFullScreen = false;
+  final bool _isFullScreen = false;
 
   @override
   void initState() {
@@ -52,7 +54,7 @@ class _VideoScreenState extends State<VideoScreen> {
   }
 
   void _playNextVideo(int index) {
-    if (vib.index < vib.videoList.length - 1) {
+    if (vib.index < videoList.length - 1) {
       _controller!.pause();
 
       // setState(() {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:inline_video_flutter/bloc/splash_bloc.dart';
-import 'package:inline_video_flutter/bloc/system_bloc.dart';
+import 'package:inline_video_flutter/services/bloc/splash_bloc.dart';
+import 'package:inline_video_flutter/services/bloc/system_bloc.dart';
 import '../components/splash_component/splash_lib.dart' as wd;
 
 class SplashScreen extends StatefulWidget {
