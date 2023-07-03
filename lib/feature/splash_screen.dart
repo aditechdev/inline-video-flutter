@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:inline_video_flutter/constant/route_constant.dart';
+import 'package:inline_video_flutter/core/routes/route_constant.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -12,16 +12,15 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-   final splashDelay = 3;
+  final splashDelay = 3;
 
-    @override
+  @override
   void initState() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     _closeKeyboard();
     _loadWidget();
     super.initState();
   }
-  
 
   void navigationPage() {
     Navigator.of(context).pushReplacementNamed(RoutePath.videoScreen);
@@ -35,10 +34,11 @@ class _SplashScreenState extends State<SplashScreen> {
     var duration = Duration(seconds: splashDelay);
     return Timer(duration, navigationPage);
   }
+
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body:  Center(child: Text("Splash Screen")),
+      body: Center(child: Text("Splash Screen")),
     );
   }
 }

@@ -9,30 +9,26 @@ class VideoScreen extends StatefulWidget {
 }
 
 class _VideoScreenState extends State<VideoScreen> {
-
   @override
   void initState() {
-     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Color(
-          0xff4F97D0,
-        ),
-        //  statusBarBrightness: Brightness.light,
-      ),
-    );
+    // Set the status bar color
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        // systemOverlayStyle: const SystemUiOverlayStyle(
+        //   statusBarColor: Colors.deepPurple,
+        //   statusBarBrightness: Brightness.light,
+        // ),
         title: const Text("Inline Video Player"),
       ),
       body: const Text(
-        'You have pushed the button this many times:',
+        'Inline Video Body',
       ),
     );
   }
