@@ -5,7 +5,7 @@ import 'package:inline_video_flutter/core/theme/theme_collection/light_theme.dar
 enum ThemeType { light, dark }
 
 class ThemeProvider {
-  ThemeType _currentTheme = ThemeType.dark;
+  ThemeType _currentTheme = ThemeType.light;
 
   void setTheme(ThemeType themeType) {
     _currentTheme = themeType;
