@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:inline_video_flutter/bloc/splash_bloc.dart';
 import 'package:inline_video_flutter/bloc/system_bloc.dart';
-import 'package:inline_video_flutter/r.dart';
+import '../components/exports/splash_components_export.dart' as wd;
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     systemBloc.disableStatusBar();
     systemBloc.closeKeyBoard();
-    systemBloc.splashDelayWidget(context);
+    splashBloc.splashDelayWidget(context);
     super.initState();
   }
 
@@ -26,38 +26,12 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SplashLogoWidget(),
+            wd.SplashLogoWidget(),
             SizedBox(height: 30),
-            SplashAppNameText()
+            wd.SplashAppNameText()
           ],
         ),
       ),
-    );
-  }
-}
-
-class SplashAppNameText extends StatelessWidget {
-  const SplashAppNameText({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const Text("Inline Video Player");
-  }
-}
-
-class SplashLogoWidget extends StatelessWidget {
-  const SplashLogoWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SvgPicture.asset(
-      AssetsSvg.splashLogo,
-      height: 150,
-      width: 150,
     );
   }
 }

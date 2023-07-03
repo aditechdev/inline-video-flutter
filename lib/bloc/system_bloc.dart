@@ -1,36 +1,20 @@
-import 'dart:async';
-
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:inline_video_flutter/core/routes/route_constant.dart';
 
 class SystemBloc {
-  final _splashDelay = 3;
-
+  /// This will show the status bar of App
   enableStatusBar() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   }
 
+  /// This will hide the status bar of App
   disableStatusBar() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
   }
 
+  /// Will close keyboard, if it was open by mistake
   closeKeyBoard() {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
   }
-
-  splashDelayWidget(BuildContext context) async {
-    var duration = Duration(seconds: _splashDelay);
-    return Timer(duration, () {
-      navigationPage(context);
-    });
-    
-  }
-
-  void navigationPage(BuildContext context) {
-    Navigator.of(context).pushReplacementNamed(RoutePath.videoScreen);
-  }
-
 }
 
 SystemBloc systemBloc = SystemBloc();
