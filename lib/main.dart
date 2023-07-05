@@ -4,8 +4,8 @@ import 'package:inline_video_flutter/core/routes/route_constant.dart';
 import 'package:inline_video_flutter/core/routes/app_routes.dart';
 import 'package:inline_video_flutter/core/theme/my_theme.dart';
 
-void main() async{
- await appInit();
+void main() async {
+  await appInit();
 }
 
 class MyApp extends StatelessWidget {
