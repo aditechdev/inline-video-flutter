@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inline_video_flutter/components/video_component/video_button.dart';
+
 import 'package:inline_video_flutter/components/video_component/video_player.dart';
 import 'package:inline_video_flutter/services/bloc/system_bloc.dart';
 import 'package:inline_video_flutter/services/bloc/video_file_bloc.dart';
@@ -97,6 +97,7 @@ class _VideoScreenState extends State<VideoScreen> {
                 child: VideoPlayerWidget(
                   controller: _controller!,
                   isFullScreen: _isFullScreen,
+                  toggleFullScreen: _toggleFullScreen,
                 ),
               ),
             ),
@@ -138,28 +139,11 @@ class _VideoScreenState extends State<VideoScreen> {
                   ),
                 )
               : Container(),
-          if (_controller!.value.isPlaying)
-            Container()
-          else if (_isFullScreen)
-            Positioned(
-              bottom: 16,
-              right: 16,
-              child: VideoButtonsWidget(
-                onClick: _toggleFullScreen,
-                icons: const Icon(Icons.fullscreen_exit),
-              ),
-            )
-          else
-            Positioned(
-              top: 16,
-              right: 16,
-              child: VideoButtonsWidget(
-                onClick: _toggleFullScreen,
-                icons: const Icon(Icons.fullscreen),
-              ),
-            ),
+          // getFullScreenControl()
         ],
       ),
     );
   }
+
+  
 }

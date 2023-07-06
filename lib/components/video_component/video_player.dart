@@ -1,45 +1,44 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:inline_video_flutter/components/video_component/video_button.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerWidget extends StatelessWidget {
   final VideoPlayerController controller;
-  final bool showSmallPlayButton;
   final bool isFullScreen;
+  final VoidCallback toggleFullScreen;
 
-  const VideoPlayerWidget({
-    Key? key,
-    required this.controller,
-    this.showSmallPlayButton = true,
-    this.isFullScreen = false,
-  }) : super(key: key);
+  const VideoPlayerWidget(
+      {Key? key,
+      required this.controller,
+      this.isFullScreen = false,
+      required this.toggleFullScreen})
+      : super(key: key);
   @override
-  Widget build(BuildContext context) =>
-      // (!controller.value)?
-      (controller.value.isInitialized)
-          ? Container(
-              alignment: Alignment.topCenter,
-              child: buildVideo(),
-            )
-          : Container(
-              alignment: Alignment.topCenter,
-              // height: 200,
-              child: Center(child: CircularProgressIndicator()),
-            );
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.topCenter,
+      child: buildVideo(),
+    );
+  }
+
   buildVideo() => Stack(
         children: [
           buildVideoPlayer(),
           Positioned.fill(
             child: BasicOverlayWidget(
               controller: controller,
-              showSmallPlayButton: showSmallPlayButton,
+              isFullScreen: isFullScreen,
+              toggleFullScreen: toggleFullScreen,
             ),
           ),
         ],
       );
   buildVideoPlayer() => AspectRatio(
-        aspectRatio: controller.value.aspectRatio,
+        aspectRatio: controller.value.isInitialized
+            ? controller.value.aspectRatio
+            : 16 / 9,
         child: VideoPlayer(
           controller,
         ),
@@ -47,11 +46,15 @@ class VideoPlayerWidget extends StatelessWidget {
 }
 
 class BasicOverlayWidget extends StatefulWidget {
-  const BasicOverlayWidget(
-      {Key? key, required this.controller, this.showSmallPlayButton = false})
-      : super(key: key);
+  const BasicOverlayWidget({
+    Key? key,
+    required this.controller,
+    required this.toggleFullScreen,
+    required this.isFullScreen,
+  }) : super(key: key);
   final VideoPlayerController controller;
-  final bool showSmallPlayButton;
+  final VoidCallback toggleFullScreen;
+  final bool isFullScreen;
 
   @override
   State<BasicOverlayWidget> createState() => _BasicOverlayWidgetState();
@@ -66,7 +69,6 @@ class _BasicOverlayWidgetState extends State<BasicOverlayWidget> {
     });
 
     if (_showControls) {
-      // Start a timer to hide the controls after 1 second
       Timer(const Duration(seconds: 1), () {
         setState(() {
           _showControls = false;
@@ -86,49 +88,62 @@ class _BasicOverlayWidgetState extends State<BasicOverlayWidget> {
           }
           _toggleControlsVisibility();
         },
-
-        // (widget.controller.value.isPlaying)
-        //     ? widget.controller.pause()
-        //     : widget.controller.play(),
         child: Stack(
           children: [
-            if (_showControls)
-              Container(
-                alignment: Alignment.center,
-                color: Colors.black38,
-                child: Icon(
-                  widget.controller.value.isPlaying
-                      ? Icons.pause
-                      : Icons.play_arrow,
-                  color: Colors.white,
-                  size: widget.showSmallPlayButton ? 20 : 80,
-                ),
-              ),
-            if (_showControls)
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
+            if (widget.controller.value.isPlaying && _showControls)
+              Center(
                 child: Container(
-                  height: 8,
-                  child: VideoProgressIndicator(
-                    widget.controller,
-                    allowScrubbing: true,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    color: Colors.black38,
+                  ),
+                  height: 70,
+                  width: 100,
+                  child: Icon(
+                    widget.controller.value.isPlaying
+                        ? Icons.pause
+                        : Icons.play_arrow,
+                    color: Colors.white,
+                    size: 50,
+                  ),
+                ),
+              )
+            else if (_showControls)
+              Center(
+                child: Container(
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    color: Colors.black38,
+                  ),
+                  height: 70,
+                  width: 100,
+                  child: Icon(
+                    widget.controller.value.isPlaying
+                        ? Icons.pause
+                        : Icons.play_arrow,
+                    color: Colors.white,
+                    size: 50,
                   ),
                 ),
               ),
-            // widget.showSmallPlayButton
-            //     ? buildSmallPlayButton()
-            //     : buildPlayButton(),
-            // Positioned(
-            //   bottom: 0,
-            //   left: 0,
-            //   right: 0,
-            //   child: SizedBox(
-            //     height: 12,
-            //     child: buildVideoProgressIndecator(),
-            //   ),
-            // )
+            getFullScreenControl(
+                controller: widget.controller,
+                isFullScreen: widget.isFullScreen,
+                toggleFullScreen: widget.toggleFullScreen),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: SizedBox(
+                height: 8,
+                child: VideoProgressIndicator(
+                  widget.controller,
+                  allowScrubbing: true,
+                ),
+              ),
+            ),
           ],
         ),
       );
@@ -145,28 +160,35 @@ class _BasicOverlayWidgetState extends State<BasicOverlayWidget> {
           ),
         );
 
-  Widget buildSmallPlayButton() => (widget.controller.value.isPlaying)
-      ? Container()
-      : Center(
-          child: Container(
-            height: 60,
-            width: 60,
-            // alignment: Alignment.center,
-            decoration: BoxDecoration(
-              // color: Colors.black54,
-              color: Colors.black.withOpacity(0.4),
-              borderRadius: const BorderRadius.all(
-                Radius.circular(30),
-              ),
-            ),
-            child: const Icon(
-              Icons.play_arrow,
-              color: Colors.white,
-              size: 40,
-            ),
-          ),
-        );
-
   Widget buildVideoProgressIndecator() =>
       VideoProgressIndicator(widget.controller, allowScrubbing: true);
+
+  Widget getFullScreenControl(
+      {void Function()? toggleFullScreen,
+      bool? isFullScreen,
+      VideoPlayerController? controller}) {
+    if (controller!.value.isPlaying) {
+      return const SizedBox();
+    }
+
+    if (isFullScreen!) {
+      return Positioned(
+        bottom: 16,
+        right: 16,
+        child: VideoButtonsWidget(
+          onClick: toggleFullScreen,
+          icons: const Icon(Icons.fullscreen_exit),
+        ),
+      );
+    } else {
+      return Positioned(
+        top: 16,
+        right: 16,
+        child: VideoButtonsWidget(
+          onClick: toggleFullScreen,
+          icons: const Icon(Icons.fullscreen),
+        ),
+      );
+    }
+  }
 }
