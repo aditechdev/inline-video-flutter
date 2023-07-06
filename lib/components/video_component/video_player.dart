@@ -25,10 +25,7 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   bool _isFullScreen = false;
 
   void _toggleFullScreen() {
-    setState(() {
-      _isFullScreen = !_isFullScreen;
-    });
-
+    setState(() => _isFullScreen = !_isFullScreen);
     systemBloc.enableAndDisableStatusBar(_isFullScreen);
     widget.toggleFullScreen(_isFullScreen);
   }
@@ -197,6 +194,7 @@ class _BasicOverlayWidgetState extends State<BasicOverlayWidget> {
   }
 }
 
+@Deprecated("Not in Use")
 showOptionalWidget({
   bool condition = false,
   Widget? widgetOnTrue,
