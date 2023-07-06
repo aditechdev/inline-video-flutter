@@ -139,11 +139,8 @@ class _VideoScreenState extends State<VideoScreen> {
                   ),
                 )
               : Container(),
-          // getFullScreenControl()
         ],
       ),
     );
   }
-
-  
 }

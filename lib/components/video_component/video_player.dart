@@ -21,22 +21,6 @@ class VideoPlayerWidget extends StatefulWidget {
 }
 
 class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
-  // bool _showControls = true;
-
-  // void _toggleControlsVisibility() {
-  //   setState(() {
-  //     _showControls = !_showControls;
-  //   });
-
-  //   if (_showControls) {
-  //     Timer(const Duration(seconds: 1), () {
-  //       setState(() {
-  //         _showControls = false;
-  //       });
-  //     });
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -75,12 +59,10 @@ class BasicOverlayWidget extends StatefulWidget {
     required this.controller,
     required this.toggleFullScreen,
     required this.isFullScreen,
-    // required this.showControls,
   }) : super(key: key);
   final VideoPlayerController controller;
   final VoidCallback toggleFullScreen;
   final bool isFullScreen;
-  // final bool showControls;
 
   @override
   State<BasicOverlayWidget> createState() => _BasicOverlayWidgetState();
@@ -108,58 +90,69 @@ class _BasicOverlayWidgetState extends State<BasicOverlayWidget> {
   }
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: () {
-          _toggleControlsVisibility();
-        },
-        child: Stack(
-          children: [
-            _showControls || !widget.controller.value.isPlaying
-                ? buildPlayButton()
-                : Container(),
-            _showControls || !widget.controller.value.isPlaying
-                ? getFullScreenControl(
-                    controller: widget.controller,
-                    isFullScreen: widget.isFullScreen,
-                    toggleFullScreen: widget.toggleFullScreen)
-                : Container(),
-            getVideoProgressIndicator()
-          ],
-        ),
-      );
+  Widget build(BuildContext context) {
+    bool showLoader = !widget.controller.value.isInitialized ||
+        widget.controller.value.isBuffering;
 
-  Widget buildPlayButton() => GestureDetector(
-        onTap: () {
-          if (widget.controller.value.isPlaying) {
-            widget.controller.pause();
-          } else {
-            widget.controller.play();
-            removeControls();
-          }
-        },
-        child: Center(
-          child: Container(
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              color: Colors.black38,
-            ),
-            height: 70,
-            width: 100,
-            child: Icon(
-              widget.controller.value.isPlaying
-                  ? Icons.pause
-                  : Icons.play_arrow,
-              color: Colors.white,
-              size: 50,
-            ),
+    bool showAllControls =
+        !showLoader && (_showControls || !widget.controller.value.isPlaying);
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        _toggleControlsVisibility();
+      },
+      child: Stack(
+        children: [
+          showLoader ? buildLoader() : Container(),
+          showAllControls ? buildPlayButton() : Container(),
+          showAllControls
+              ? getFullScreenControl(
+                  controller: widget.controller,
+                  isFullScreen: widget.isFullScreen,
+                  toggleFullScreen: widget.toggleFullScreen)
+              : Container(),
+          getVideoProgressIndicator()
+        ],
+      ),
+    );
+  }
+
+  Widget buildLoader() {
+    return const Center(
+      child: CircularProgressIndicator(
+        color: Colors.red,
+      ),
+    );
+  }
+
+  Widget buildPlayButton() {
+    return GestureDetector(
+      onTap: () {
+        if (widget.controller.value.isPlaying) {
+          widget.controller.pause();
+        } else {
+          widget.controller.play();
+          removeControls();
+        }
+      },
+      child: Center(
+        child: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            color: Colors.black38,
+          ),
+          height: 70,
+          width: 100,
+          child: Icon(
+            widget.controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+            color: Colors.white,
+            size: 50,
           ),
         ),
-      );
-
-  Widget buildVideoProgressIndecator() =>
-      VideoProgressIndicator(widget.controller, allowScrubbing: true);
+      ),
+    );
+  }
 
   Widget getFullScreenControl(
       {void Function()? toggleFullScreen,
@@ -191,4 +184,19 @@ class _BasicOverlayWidgetState extends State<BasicOverlayWidget> {
       ),
     );
   }
+}
+
+showOptionalWidget({
+  bool condition = false,
+  Widget? widgetOnTrue,
+  Widget widgetOnFalse = const SizedBox(
+    height: 0,
+    width: 0,
+  ),
+}) {
+  if (condition) {
+    return widgetOnTrue;
+  }
+
+  return widgetOnFalse;
 }
