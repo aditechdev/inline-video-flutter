@@ -7,7 +7,6 @@ import 'package:video_player/video_player.dart';
 
 class VideoPlayerWidget extends StatefulWidget {
   final VideoPlayerController controller;
-  // final bool isFullScreen;
   final Function(bool) toggleFullScreen;
 
   const VideoPlayerWidget({
