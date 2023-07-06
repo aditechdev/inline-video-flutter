@@ -67,18 +67,6 @@ class _VideoScreenState extends State<VideoScreen> {
     }
   }
 
-  void _toggleFullScreen() {
-    setState(() {
-      _isFullScreen = !_isFullScreen;
-    });
-
-    if (_isFullScreen) {
-      systemBloc.disableStatusBar();
-    } else {
-      systemBloc.enableStatusBar();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,8 +84,11 @@ class _VideoScreenState extends State<VideoScreen> {
                 aspectRatio: _controller!.value.aspectRatio,
                 child: VideoPlayerWidget(
                   controller: _controller!,
-                  isFullScreen: _isFullScreen,
-                  toggleFullScreen: _toggleFullScreen,
+                  toggleFullScreen: (value) {
+                    setState(() {
+                      _isFullScreen = value;
+                    });
+                  },
                 ),
               ),
             ),

@@ -2,17 +2,18 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:inline_video_flutter/components/video_component/video_button.dart';
+import 'package:inline_video_flutter/services/bloc/system_bloc.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerWidget extends StatefulWidget {
   final VideoPlayerController controller;
-  final bool isFullScreen;
-  final VoidCallback toggleFullScreen;
+  // final bool isFullScreen;
+  final Function(bool) toggleFullScreen;
 
   const VideoPlayerWidget({
     Key? key,
     required this.controller,
-    this.isFullScreen = false,
+    // this.isFullScreen = false,
     required this.toggleFullScreen,
   }) : super(key: key);
 
@@ -21,6 +22,17 @@ class VideoPlayerWidget extends StatefulWidget {
 }
 
 class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
+  bool _isFullScreen = false;
+
+  void _toggleFullScreen() {
+    setState(() {
+      _isFullScreen = !_isFullScreen;
+    });
+
+    systemBloc.enableAndDisableStatusBar(_isFullScreen);
+    widget.toggleFullScreen(_isFullScreen);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,9 +47,8 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
           Positioned.fill(
             child: BasicOverlayWidget(
               controller: widget.controller,
-              isFullScreen: widget.isFullScreen,
-              toggleFullScreen: widget.toggleFullScreen,
-              // showControls: _showControls,
+              isFullScreen: _isFullScreen,
+              toggleFullScreen: _toggleFullScreen,
             ),
           ),
         ],

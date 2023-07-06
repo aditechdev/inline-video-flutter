@@ -11,6 +11,14 @@ class SystemBloc {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
   }
 
+  enableAndDisableStatusBar(bool showStatusBar) {
+    if (!showStatusBar) {
+      enableStatusBar();
+    } else {
+      disableStatusBar();
+    }
+  }
+
   /// Will close keyboard, if it was open by mistake
   closeKeyBoard() {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
