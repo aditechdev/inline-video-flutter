@@ -3,5 +3,5 @@ class AssetsSvg {
 }
 
 class AssetVideo {
-  static const String video = "assets/video/bee.mp4";
+  static const String video = "";
 }
