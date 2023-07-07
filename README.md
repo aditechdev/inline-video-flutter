@@ -49,4 +49,4 @@ Note: This readme file provides an overview of the project structure and its com
 
 ##Media
 
-![App Record GIF]("https://github.com/aditechdev/inline-video-flutter/raw/main/assets/gif/app_record.gif"  width="400")
+<img src="https://github.com/aditechdev/inline-video-flutter/raw/main/assets/gif/app_record.gif" width="200">
