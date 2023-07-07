@@ -12,43 +12,15 @@ class VideoData {
   ];
 
   List<Map<String, String>> emotionsList = [
-    
-    {
-      "name": "Happy",
-      "emoji": "🙂"
-    },
-    {
-      "name": "Sad",
-      "emoji": "🥺"
-    },
-    {
-      "name": "Angry",
-      "emoji": "😡"
-    },
-    {
-      "name": "Relaxed",
-      "emoji": "😌"
-    },
-    {
-      "name": "Woried",
-      "emoji": "😟"
-    },
-    {
-      "name": "Bored",
-      "emoji": "🥱"
-    },
-    {
-      "name": "Grateful",
-      "emoji": "😊"
-    },
-    {
-      "name": "Afraid",
-      "emoji": "😨"
-    },
-    {
-      "name": "Unsure",
-      "emoji": "😐"
-    },
+    {"name": "Happy", "emoji": "🙂", "duration": "4"},
+    {"name": "Sad", "emoji": "🥺", "duration": "14"},
+    {"name": "Angry", "emoji": "😡", "duration": "22"},
+    {"name": "Relaxed", "emoji": "😌", "duration": "30"},
+    {"name": "Woried", "emoji": "😟", "duration": "47"},
+    {"name": "Bored", "emoji": "🥱", "duration": "107"},
+    {"name": "Grateful", "emoji": "😊", "duration": "117"},
+    {"name": "Afraid", "emoji": "😨", "duration": "140"},
+    {"name": "Unsure", "emoji": "😐", "duration": "150"},
   ];
 }
 
