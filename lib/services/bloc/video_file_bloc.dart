@@ -5,6 +5,8 @@ class VideoFileBloc {
   final VideoFileRepo _videoFileRepo = VideoFileRepo();
 
   final BehaviorSubject<List<String>> _videoList = BehaviorSubject.seeded([]);
+  final BehaviorSubject<List<Map<String, String>>> _emotionsList =
+      BehaviorSubject.seeded([]);
 
   int index = 0;
 
@@ -19,7 +21,14 @@ class VideoFileBloc {
     return Uri.parse(video);
   }
 
+  fetchEmotionsList() {
+    var data = _videoFileRepo.fetchEmotionsList();
+    _emotionsList.add(data);
+  }
+
   BehaviorSubject<List<String>> get getVideoList => _videoList;
+  BehaviorSubject<List<Map<String, String>>> get getEmotionsList =>
+      _emotionsList;
 }
 
 VideoFileBloc vib = VideoFileBloc();

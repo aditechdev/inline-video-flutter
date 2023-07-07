@@ -10,6 +10,46 @@ class VideoData {
     "https://joy.videvo.net/videvo_files/video/premium/partners0228/large_watermarked/BB_84cd713c-4e89-4728-baae-85f2b1196940_preview.mp4",
     "https://cdn.videvo.net/videvo_files/video/premium/video0319/large_watermarked/610_610-0114_preview.mp4"
   ];
+
+  List<Map<String, String>> emotionsList = [
+    
+    {
+      "name": "Happy",
+      "emoji": "🙂"
+    },
+    {
+      "name": "Sad",
+      "emoji": "🥺"
+    },
+    {
+      "name": "Angry",
+      "emoji": "😡"
+    },
+    {
+      "name": "Relaxed",
+      "emoji": "😌"
+    },
+    {
+      "name": "Woried",
+      "emoji": "😟"
+    },
+    {
+      "name": "Bored",
+      "emoji": "🥱"
+    },
+    {
+      "name": "Grateful",
+      "emoji": "😊"
+    },
+    {
+      "name": "Afraid",
+      "emoji": "😨"
+    },
+    {
+      "name": "Unsure",
+      "emoji": "😐"
+    },
+  ];
 }
 
 VideoData videoData = VideoData();

@@ -5,4 +5,8 @@ class VideoFileRepo {
   List<String> fetchVideo() {
     return _videoData.videoList;
   }
+
+  List<Map<String, String>> fetchEmotionsList() {
+    return _videoData.emotionsList;
+  }
 }

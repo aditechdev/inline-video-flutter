@@ -4,6 +4,7 @@ import 'package:inline_video_flutter/components/video_component/video_player.dar
 import 'package:inline_video_flutter/services/bloc/system_bloc.dart';
 import 'package:inline_video_flutter/services/bloc/video_file_bloc.dart';
 import 'package:video_player/video_player.dart';
+import 'dart:math' as math;
 
 class VideoScreen extends StatefulWidget {
   const VideoScreen({super.key});
@@ -94,43 +95,101 @@ class _VideoScreenState extends State<VideoScreen> {
             ),
           ),
           _showGrid
-              ? Positioned(
-                  top: 10,
-                  left: 20,
-                  right: 20,
-                  bottom: 20,
-                  child: GridView.count(
-                    crossAxisCount: 4,
-                    padding: EdgeInsets.zero,
-                    mainAxisSpacing: 0,
-                    crossAxisSpacing: 0,
-                    shrinkWrap: true,
-                    children: List.generate(8, (index) {
-                      return GestureDetector(
-                        onTap: () {
-                          _playNextVideo(index);
-                          setState(() {
-                            _showGrid = false;
-                          });
-                        },
-                        child: Container(
-                          color: Colors.grey,
-                          child: Center(
-                            child: Text(
-                              'Square ${index + 1}',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    }),
-                  ),
+              ? EmotionsGridWidget(
+                  onTap: (index) {
+                    _playNextVideo(index);
+                    setState(() {
+                      _showGrid = false;
+                    });
+                  },
+                  isFullScreen: _isFullScreen,
                 )
               : Container(),
         ],
+      ),
+    );
+  }
+}
+
+class EmotionsGridWidget extends StatelessWidget {
+  const EmotionsGridWidget({
+    this.onTap,
+    this.isFullScreen,
+    super.key,
+  });
+  final Function(int)? onTap;
+  final bool? isFullScreen;
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: isFullScreen! ? MediaQuery.of(context).size.width * 0.6 : 10,
+      left: 20,
+      right: 20,
+      // bottom: 20,
+      child: Container(
+        color: Colors.blue.withOpacity(0.6),
+        padding: EdgeInsets.only(
+          left: 20,
+          right: 20,
+          top: isFullScreen! ? 100 : 10,
+          bottom: isFullScreen! ? 100 : 10,
+        ),
+        child: Transform.rotate(
+          angle: isFullScreen! ? math.pi / 2 : 0,
+          child: Column(
+            children: [
+              const Text(
+                "How do you feel now?",
+                style: TextStyle(color: Colors.white, fontSize: 15),
+              ),
+              SizedBox(
+                height: isFullScreen! ? 30 : 10,
+              ),
+              StreamBuilder<List<Map<String, String>>>(
+                  stream: vib.getEmotionsList,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Container();
+                    }
+                    return GridView.count(
+                      crossAxisCount: 3,
+                      padding: EdgeInsets.zero,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      shrinkWrap: true,
+                      childAspectRatio: 17 / 7,
+                      // childAspectRatio:,
+                      children: List.generate(snapshot.data!.length, (index) {
+                        var emoji = snapshot.data![index];
+                        return ElevatedButton(
+                          onPressed: () {
+                            onTap!(index);
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('${emoji["name"]}'),
+                              const SizedBox(
+                                height: 2,
+                              ),
+                              Text('${emoji["emoji"]}'),
+                            ],
+                          ),
+                        );
+                      }),
+                    );
+                  }),
+              SizedBox(
+                height: isFullScreen! ? 30 : 10,
+              ),
+              const Text(
+                "Click one option",
+                style: TextStyle(color: Colors.white, fontSize: 15),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

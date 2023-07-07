@@ -22,6 +22,7 @@ class SplashBloc {
 
   appInitialCheck() {
     vib.fetchVideosBloc();
+    vib.fetchEmotionsList();
   }
 }
 
