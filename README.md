@@ -1,30 +1,48 @@
 # inline_video_flutter
-It is a flutter project which can be used to change video according to emotions
 
+**inline_video_flutter** is a Flutter project that allows you to change videos based on different emotions. It provides two approaches for video switching: using a long video and skipping to different time frames, or having a list of videos to switch between (the latter approach is used in this project).
 
-There are two ways to do the project
-- Creat a long video and skip to different time frame or
-- Having list of video to switch to differnt wideo (I have used this option to change the video)
+## Project Structure
 
-The project start with lib/main.dart
+The project structure is organized as follows:
 
-- I have Used RxDart and mvvm pattern for development
-- In lib it contains
-    - components: This has all the widget that required in the project, In component folder it has folder according to screen. The screen folder has bunch of component with a lib
-- core: Core contains all the files and folder related to main.dart
-    - routes folder contain route of the path
-    - theme contains theme
-    - app_init.dart contains all the function that should run before app start
-- feature: This folder contain screens of app, currently there are only two file splash screen and video screen
-    - splash_screen contains code of splash screen
-    - video_screen contains code of video
-- Services: Services is the file where where all the logic and data manipulation is there
-    - bloc contains the logic of app, In block there are three file
-        - splash_bloc contains logic of the splash screen, like dely time and navigation
-        - system_block contains system configuration of app, methods to disable or enable action bar, hide keyboard
-        - video_file_block contains fetching of list for grid, video, play single video etc
-- data: I used to mimic the api integration which has list of data that is fetched by repo
-- repo: video_file_repo: It is used as a medium to fetch file from the data and send it back to bloc
-- main.dart: I keep this file simple by moving all the logic to core
-- r.dart: Used for assets managment
+- **lib/main.dart**: The entry point of the application.
+- **lib/components**: Contains all the widgets required for the project. The components are organized into folders based on the screens they belong to.
+- **lib/core**: Contains core files and folders related to the main.dart file.
+  - **lib/core/routes**: Contains the route configuration for different paths in the app.
+  - **lib/core/theme**: Contains the theme configuration for the app.
+  - **lib/core/app_init.dart**: Contains functions that need to be executed before the app starts.
+- **lib/features**: Contains the screens of the app. Currently, it includes two files:
+  - **lib/features/splash_screen.dart**: Contains the code for the splash screen, including delay time and navigation logic.
+  - **lib/features/video_screen.dart**: Contains the code for the video screen.
+- **lib/services**: Contains the services and business logic of the app.
+  - **lib/services/bloc**: Contains the logic for different aspects of the app.
+    - **lib/services/bloc/splash_bloc.dart**: Handles the logic for the splash screen, including delay time and navigation.
+    - **lib/services/bloc/system_bloc.dart**: Manages system-level configurations, such as enabling or disabling the action bar and hiding the keyboard.
+    - **lib/services/bloc/video_file_bloc.dart**: Fetches the list of files for the grid, plays single videos, and manages video-related logic.
+- **lib/data**: Contains mock API integration, providing a list of data that is fetched by the repository.
+- **lib/repo**: Contains the repository that acts as a medium for fetching files from the data and providing them to the bloc.
+- **lib/r.dart**: Used for asset management.
 
+## Getting Started
+
+To get started with the **inline_video_flutter** project, follow these steps:
+
+1. Clone the repository.
+2. Open the project in your preferred Flutter development environment.
+3. Run the application on your desired device or emulator.
+
+## Dependencies
+
+The project utilizes the following dependencies:
+
+- **RxDart**: Provides reactive programming support for handling streams of data.
+- **mvvm**: Implements the MVVM (Model-View-ViewModel) pattern for structured app development.
+
+## Usage
+
+The **inline_video_flutter** project allows you to create a video-based app where videos can be switched based on different emotions. It provides a responsive and user-friendly interface for seamless video playback and navigation.
+
+Feel free to explore the code and customize it to fit your specific requirements. Happy coding!
+
+Note: This readme file provides an overview of the project structure and its components. For detailed implementation details, please refer to the actual code files in the project.
