@@ -46,3 +46,7 @@ The **inline_video_flutter** project allows you to create a video-based app wher
 Feel free to explore the code and customize it to fit your specific requirements. Happy coding!
 
 Note: This readme file provides an overview of the project structure and its components. For detailed implementation details, please refer to the actual code files in the project.
+
+##Media
+
+![App Record GIF](https://github.com/aditechdev/inline-video-flutter/raw/main/assets/gif/app_record.gif)
