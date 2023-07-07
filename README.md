@@ -50,3 +50,5 @@ Note: This readme file provides an overview of the project structure and its com
 ##Media
 
 <img src="https://github.com/aditechdev/inline-video-flutter/raw/main/assets/gif/app_record.gif" width="200">
+
+[Download APK](https://drive.google.com/file/d/1D20gux8lsp2bkCgBhAWi_TRCRbxlqCeb/view?usp=sharing)
